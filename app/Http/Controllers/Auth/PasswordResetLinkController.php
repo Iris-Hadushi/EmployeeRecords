@@ -29,7 +29,7 @@ class PasswordResetLinkController extends Controller
         $request->merge([$input_type => $request->input('input_type')]);
         $request->validate([
           'email' => ['required_without:username', 'email', 'exists:users,email'],
-          'username' => ['required_without:email', 'username', 'exists:users,username'],
+          'username' => ['required_without:email', 'string', 'exists:users,username'],
         ]);
 
         // We will send the password reset link to this user. Once we have attempted
