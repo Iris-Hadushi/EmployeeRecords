@@ -31,6 +31,17 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+        $user = Auth::user(); // Retrieve the authenticated user
+
+        // Check if the user is available
+        if (!$user) {
+            abort(404); // You can handle this case based on your application logic
+        }
+        if ($request->hasFile('profile_picture')) {
+            $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $imagePath;
+            $user->save();
+        }
 
         $request->user()->save();
 
@@ -42,6 +53,7 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        Storage::disk('public')->delete($user->profile_picture);
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current-password'],
         ]);
