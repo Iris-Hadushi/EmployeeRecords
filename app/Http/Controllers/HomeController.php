@@ -20,7 +20,9 @@ if(Auth::id())
     }
     else if($role=='admin')
     {
-        return view('admin.adminhome');
+           // Fetch data from db only for users==employees
+           $users = User::where('role', 'user')->get();
+           return view('admin.adminhome', ['users' => $users]);
     }
     else{
         return redirect()->back();

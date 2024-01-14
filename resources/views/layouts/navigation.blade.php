@@ -33,8 +33,8 @@
                                      width: 3rem;object-fit: cover;">
                             @else
                             <div>
-                                @if ($user->profile_picture)
-                                    <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" class="rounded-full h-16 w-16" 
+                                @if (Auth::user() && Auth::user()->profile_picture)
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="Profile Picture" class="rounded-full h-16 w-16" 
                                     style=" border-radius: 50%; border: 2px solid #fff;box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);height: 2.7rem;width:2.7rem;>
                                             width: 3rem;object-fit: cover;">
                                 @else
