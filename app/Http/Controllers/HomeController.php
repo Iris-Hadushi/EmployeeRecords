@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Department;
 
 class HomeController extends Controller
 {
@@ -20,8 +21,8 @@ if(Auth::id())
     }
     else if($role=='admin')
     {
-           // Fetch data from db only for users==employees
-           $users = User::where('role', 'user')->get();
+           //Fetch data from db only for users==employees
+           $users = User::where('role', 'user')->with('department')->get();
            return view('admin.adminhome', ['users' => $users]);
     }
     else{

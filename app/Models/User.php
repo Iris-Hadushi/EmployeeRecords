@@ -23,7 +23,9 @@ class User extends Authenticatable
         'password',
         'username',
         'profile_picture',
+        'department_id',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,4 +45,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
 }
