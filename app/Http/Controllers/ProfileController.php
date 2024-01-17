@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -54,20 +55,25 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Storage::disk('public')->delete($user->profile_picture);
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current-password'],
         ]);
-
+    
         $user = $request->user();
-
+    
+        // Delete the profile picture if it exists
+        if ($user->profile_picture) {
+            Storage::disk('public')->delete($user->profile_picture);
+        }
+    
         Auth::logout();
-
+    
         $user->delete();
-
+    
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+    
+        return redirect()->route('home')->with('status', 'Account deleted successfully.');
 
-        return Redirect::to('/');
     }
 }
