@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Department;
@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
@@ -19,9 +19,23 @@ class HomeController extends Controller
             if ($role == 'user') {
                 return view('dashboard');
             } else if ($role == 'admin') {
-                // Fetch data from db only for users==employees
-                $users = User::where('role', 'user')->with('department')->get();
-                
+                $query = User::where('role', 'user')->with('department');
+
+                $search = $request->input('search');
+                if ($search) {
+                    $query->where(function($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%')
+                          ->orWhere('email', 'like', '%' . $search . '%');
+                        
+                    });
+                }
+
+                $sortField = $request->input('sort_field', 'name');
+                $sortOrder = $request->input('sort_order', 'asc');
+                $query->orderBy($sortField, $sortOrder);
+
+                $users = $query->paginate(10);
+
                 // Fetch departments
                 $departments = Department::all();
                 
