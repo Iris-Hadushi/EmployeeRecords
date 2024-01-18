@@ -20,16 +20,24 @@ class HomeController extends Controller
                 return view('dashboard');
             } else if ($role == 'admin') {
                 $query = User::where('role', 'user')->with('department');
-
+               
+                // Search condition by name
                 $search = $request->input('search');
                 if ($search) {
                     $query->where(function($q) use ($search) {
                         $q->where('name', 'like', '%' . $search . '%')
-                          ->orWhere('email', 'like', '%' . $search . '%');
+                          ->orWhere('username', 'like', '%' . $search . '%');
                         
                     });
                 }
 
+                // Filter by department condition
+                $filterDepartment = $request->input('filter_department');
+                if ($filterDepartment) {
+                    $query->where('department_id', $filterDepartment);
+                }
+
+                // Pagination and ordering
                 $sortField = $request->input('sort_field', 'name');
                 $sortOrder = $request->input('sort_order', 'asc');
                 $query->orderBy($sortField, $sortOrder);
