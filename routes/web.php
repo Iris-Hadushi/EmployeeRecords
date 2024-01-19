@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DepartmentController;
 
 use App\Http\Controllers\HomeController;
 
@@ -35,8 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/user/create', [HomeController::class, 'showCreateUserForm'])->name('admin.user.create.form');
     Route::get('/admin/user/{user}/edit', [HomeController::class, 'editUser'])->name('admin.edit_user');
     Route::patch('/admin/user/{user}/update', [HomeController::class, 'updateUser'])->name('admin.update_user');
+    Route::get('/departments/tree', [DepartmentController::class, 'showTree'])->name('departments.tree');
+    Route::get('/departments/add', [DepartmentController::class, 'showAddForm'])->name('departments.add');
+    Route::post('/departments/store', [DepartmentController::class, 'store'])->name('departments.store');
 
-    
 });
 
   

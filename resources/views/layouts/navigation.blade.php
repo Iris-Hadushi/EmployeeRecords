@@ -9,10 +9,16 @@
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200 pr-5" />
                     </a>
                 </div>
-                
+
                 @if(!request()->routeIs('admin.user.create.form'))
                     <x-nav-link :href="route('admin.user.create.form')">
                         {{ __(' Create User') }}
+                    </x-nav-link>
+                @endif
+                
+                @if(!request()->routeIs('departments.tree'))
+                    <x-nav-link :href="route('departments.tree')">
+                        {{ __(' Departments') }}
                     </x-nav-link>
                 @endif
 

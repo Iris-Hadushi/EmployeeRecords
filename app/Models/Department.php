@@ -16,13 +16,8 @@ class Department extends Model
         'parent_department_id',
     ];
 
-    public function company()
+    public function childDepartments()
     {
-        return $this->belongsTo(Company::class, 'company_id');
-    }
-
-    public function parentDepartment()
-    {
-        return $this->belongsTo(Department::class, 'parent_department_id');
+        return $this->hasMany(Department::class, 'parent_department_id', 'department_id');
     }
 }
