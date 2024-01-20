@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Department;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +14,17 @@ class DepartmentController extends Controller
 {
     public function showTree()
     {
-        $departments = Department::all();
-        return view('departments.tree', compact('departments'));
+        $departments = Department::with('childDepartments')->get();
+    
+        $usersByDepartment = DB::table('users')
+            ->join('departments', 'users.department_id', '=', 'departments.department_id')
+            ->select('users.*', 'departments.department_id as department_id')
+            ->where('users.role', '!=', 'admin') // Exclude users with the 'admin' role
+            ->get()
+            ->groupBy('department_id');
+    
+        return view('departments.tree', compact('departments', 'usersByDepartment'));
     }
-
     public function store(Request $request)
 {
     $request->validate([

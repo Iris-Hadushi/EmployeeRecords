@@ -50,20 +50,20 @@
 </style>
 
 <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex">
-            <div class="p-6 text-gray-900 dark:text-gray-100 flex-grow">
-                <div class="tree">
-                    @foreach($departments as $department)
-                        @if(!$department->parent_department_id)
-                            <ul>
-                                @include('departments.tree_node', ['department' => $department])
-                            </ul>
-                        @endif
-                    @endforeach
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex">
+                <div class="p-6 text-gray-900 dark:text-gray-100 flex-grow">
+                    <div class="tree">
+                        @foreach($departments as $department)
+                            @if(!$department->parent_department_id)
+                                <ul>
+                                    @include('departments.tree_node', ['department' => $department, 'users' => $usersByDepartment[$department->department_id] ?? []])
+                                </ul>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-            <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
                 <a href="{{ route('departments.add') }}" class="bg-green-500 text-white px-4 py-2 rounded-md">Add New Department</a>
             </div>
         </div>
