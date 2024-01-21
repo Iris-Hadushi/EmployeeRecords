@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/departments/tree', [DepartmentController::class, 'showTree'])->name('departments.tree');
     Route::get('/departments/add', [DepartmentController::class, 'showAddForm'])->name('departments.add');
     Route::post('/departments/store', [DepartmentController::class, 'store'])->name('departments.store');
+    Route::delete('/departments/delete', [DepartmentController::class, 'delete'])->name('departments.delete');
+Route::get('/departments/edit/{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
+Route::patch('/departments/update/{department}', [DepartmentController::class, 'update'])->name('departments.update');
 
 });
 

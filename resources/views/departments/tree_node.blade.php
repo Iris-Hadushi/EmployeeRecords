@@ -1,5 +1,7 @@
 <li class="parent-node">
     {{ $department->department_name }}
+    <button class="edit-button" onclick="window.location='{{ route('departments.edit', $department->department_id) }}'">Edit</button>
+
     @if($department->childDepartments->count() > 0)
         <ul style="display: none;" class="tree_node">
             @foreach($department->childDepartments as $child)
@@ -15,5 +17,3 @@
         </ul>
     @endif
 </li>
-
-

@@ -77,7 +77,7 @@
                                         {{ $user->role }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                    {{ $user->department->department_name ?? 'N/A' }}
+                                    {{ $user->department->department_name ?? 'Department not chosen' }}
                                     </td>
                                 
                                     <td class="px-6 py-4 whitespace-nowrap">
