@@ -10,6 +10,7 @@
                     </a>
                 </div>
 
+            @if(auth()->user() && auth()->user()->role === 'admin')
                 @if(!request()->routeIs('admin.user.create.form'))
                     <x-nav-link :href="route('admin.user.create.form')">
                         {{ __(' Create User') }}
@@ -21,7 +22,7 @@
                         {{ __(' Departments') }}
                     </x-nav-link>
                 @endif
-
+            @endif
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">

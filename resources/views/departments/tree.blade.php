@@ -8,7 +8,8 @@
    .tree, .tree ul {
     margin:0;
     padding:0;
-    list-style:none
+    list-style:none;
+    cursor: pointer;
     }
     .tree ul {
         margin-left:1em;
