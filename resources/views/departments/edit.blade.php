@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Add Department') }}
+            {{ __('Edit Department') }}
         </h2>
     </x-slot>
 
@@ -9,8 +9,9 @@
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h2 class="text-2xl font-semibold mb-4">Edit Department</h2>
-                    <form action="{{ route('departments.update', $department->department_id) }}" method="POST">
+                   <h2 class="text-2xl font-semibold mb-4">Edit Department</h2>
+                   <i><h2 class="text-sm font-semibold mb-4">To make a Child Department a Parent Department please let the field:"Parent Department" unselected</h2></i>
+                   <form action="{{ route('departments.update', $department->department_id) }}" method="POST">
         @csrf
         @method('PATCH')
         <div class="mb-4">

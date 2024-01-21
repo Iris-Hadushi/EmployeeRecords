@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 class="text-2xl font-semibold mb-4">Add Department</h2>
-
+                    <i><h2 class="text-sm font-semibold mb-4">If you want to add a Parent Department please let the field:"Parent Department" unselected</h2></i>
                     <form action="{{ route('departments.store') }}" method="POST">
                         @csrf
 
