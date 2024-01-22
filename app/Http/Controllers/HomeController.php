@@ -17,7 +17,7 @@ class HomeController extends Controller
             $role = Auth()->user()->role;
 
             if ($role == 'user') {
-                return view('dashboard');
+                return redirect()->route('profile.edit');
             } else if ($role == 'admin') {
                 $query = User::where('role', 'user')->with('department');
                

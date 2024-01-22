@@ -17,6 +17,5 @@ class Company extends Model
         'company_name',
     ];
 
-    // Define relationships if needed
 }
 

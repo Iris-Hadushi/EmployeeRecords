@@ -19,7 +19,7 @@ class DepartmentController extends Controller
         $usersByDepartment = DB::table('users')
             ->join('departments', 'users.department_id', '=', 'departments.department_id')
             ->select('users.*', 'departments.department_id as department_id')
-            ->where('users.role', '!=', 'admin') // Exclude users with the 'admin' role
+            ->where('users.role', '!=', 'admin') //not the 'admin' role
             ->get()
             ->groupBy('department_id');
     
@@ -30,16 +30,16 @@ class DepartmentController extends Controller
     $request->validate([
         'department_name' => 'required|string|max:255',
         'parent_department_id' => 'nullable|exists:departments,department_id',
-        'company_id' => 'required|exists:companies,company_id', // Add validation for company_id
+        'company_id' => 'required|exists:companies,company_id',
     ]);
 
     Department::create([
-        'company_id' => $request->input('company_id'), // Use the selected company_id from the form
+        'company_id' => $request->input('company_id'),
         'department_name' => $request->input('department_name'),
         'parent_department_id' => $request->input('parent_department_id'),
     ]);
 
-    $departments = Department::all(); // Fetch list of departments
+    $departments = Department::all(); 
     $companies = Company::all();
     
     return redirect()->route('departments.tree')->with('status', 'Department added successfully.');
@@ -62,16 +62,14 @@ public function delete(Request $request)
 
     $departmentId = $request->input('department_id');
 
-    // Manually delete child departments
+    // delete ch departments
     Department::where('parent_department_id', $departmentId)->delete();
 
-    // Now delete the parent department
+    // delete p department
     Department::findOrFail($departmentId)->delete();
 
     return redirect()->route('departments.tree')->with('status', 'Department and its child departments deleted successfully.');
 }
-
-// DepartmentController.php
 
 public function edit($departmentId)
 {

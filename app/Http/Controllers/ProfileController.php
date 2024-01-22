@@ -33,11 +33,11 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-        $user = Auth::user(); // Retrieve the authenticated user
+        $user = Auth::user(); 
 
         // Check if the user is available
         if (!$user) {
-            abort(404); // You can handle this case based on your application logic
+            abort(404);
         }
         if ($request->hasFile('profile_picture')) {
             $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
