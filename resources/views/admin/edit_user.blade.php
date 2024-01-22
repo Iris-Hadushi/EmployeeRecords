@@ -1,6 +1,5 @@
-<!-- edit_user.blade.php -->
-
 <x-app-layout>
+
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -8,8 +7,8 @@
                     <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
 
                     <form action="{{ route('admin.update_user', ['user' => $user->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
+                        @csrf
+                        @method('PATCH')
 
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name:</label>
@@ -38,11 +37,12 @@
                                         <option value="{{ $department->department_id }}">{{ $department->department_name }}</option>
                                     @endforeach
                             </select>
-                         </div>
+                        </div>
 
                         <div class="mb-4">
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Save Changes</button>
                         </div>
+
                     </form>
 
                     @if(session('status'))
@@ -55,4 +55,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>

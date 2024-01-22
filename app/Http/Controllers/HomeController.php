@@ -21,33 +21,32 @@ class HomeController extends Controller
             } else if ($role == 'admin') {
                 $query = User::where('role', 'user')->with('department');
                
-                // Search condition by name
-                $search = $request->input('search');
-                if ($search) {
-                    $query->where(function($q) use ($search) {
-                        $q->where('name', 'like', '%' . $search . '%')
-                          ->orWhere('username', 'like', '%' . $search . '%');
-                        
-                    });
-                }
+            // Search
+            $search = $request->input('search');
+            if ($search) {
+                $query->where(function($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('username', 'like', '%' . $search . '%');
+                    
+                });
+            }
 
-                // Filter by department condition
-                $filterDepartment = $request->input('filter_department');
-                if ($filterDepartment) {
-                    $query->where('department_id', $filterDepartment);
-                }
+            // Filter
+            $filterDepartment = $request->input('filter_department');
+            if ($filterDepartment) {
+                $query->where('department_id', $filterDepartment);
+            }
 
-                // Pagination and ordering
-                $sortField = $request->input('sort_field', 'name');
-                $sortOrder = $request->input('sort_order', 'asc');
-                $query->orderBy($sortField, $sortOrder);
+            //Ordering
+            $sortField = $request->input('sort_field', 'name');
+            $sortOrder = $request->input('sort_order', 'asc');
+            $query->orderBy($sortField, $sortOrder);
 
-                $users = $query->paginate(10);
-
-                // Fetch departments
-                $departments = Department::all();
+            $users = $query->paginate(10);
+            // Pagination
+            $departments = Department::all();
                 
-                return view('admin.adminhome', ['users' => $users, 'departments' => $departments]);
+            return view('admin.adminhome', ['users' => $users, 'departments' => $departments]);
             } else {
                 return redirect()->back();
             }
@@ -56,7 +55,7 @@ class HomeController extends Controller
     public function createUser(Request $request): RedirectResponse
     {
 
-       // Validation rules for creating a new user
+       // New user validation
        $request->validate([
         'name' => 'required|string|max:255',
         'username' => 'required|string|max:255|unique:users',
@@ -77,24 +76,22 @@ class HomeController extends Controller
        return redirect()->route('home')->with('status', 'User created successfully.');
     }
 
-   public function showCreateUserForm()
-   {
+    public function showCreateUserForm()
+    {
        $departments = Department::all();
        return view('admin.create-user', ['departments' => $departments]);
-   }
+    }
 
-   public function editUser(User $user): View
+    public function editUser(User $user): View
     {
         $departments = Department::all();
         return view('admin.edit_user', ['user' => $user, 'departments' => $departments]);
     }
 
-   /**
-    * Update the user details.
-    */
+ 
    public function updateUser(Request $request, User $user): RedirectResponse
    {
-       // Validation rules for updating a user
+       // Validation for updating
        $request->validate([
            'name' => 'required|string|max:255',
            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
@@ -116,7 +113,6 @@ class HomeController extends Controller
 
    public function destroyUser(User $user): RedirectResponse
 {
-    // Add any additional checks or validations as needed
 
     $user->delete();
 

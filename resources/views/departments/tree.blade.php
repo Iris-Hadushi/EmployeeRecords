@@ -61,41 +61,42 @@
 </style>
 
 <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex">
-                <div class="p-6 text-gray-900 dark:text-gray-100 flex-grow">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex">
+            <div class="p-6 text-gray-900 dark:text-gray-100 flex-grow">
                 <div class="tree">
-        @foreach($departments as $department)
-            @if(!$department->parent_department_id)
-                <ul>
-                    @include('departments.tree_node', ['department' => $department, 'users' => $usersByDepartment[$department->department_id] ?? []])
-                </ul>
-            @endif
-        @endforeach
-    </div>
+                    @foreach($departments as $department)
+                        @if(!$department->parent_department_id)
+                            <ul>
+                                @include('departments.tree_node', ['department' => $department, 'users' => $usersByDepartment[$department->department_id] ?? []])
+                            </ul>
+                        @endif
+                    @endforeach
                 </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                <h4 class="text-xl font-semibold mb-4 ">Add new department</h4>
-                <a href="{{ route('departments.add') }}" class="bg-green-500 text-white px-4 py-2 rounded-md">Add New Department</a>
-              
-                <!--  Form for Deleting Departments -->
-              <h4 class="text-xl font-semibold mb-4 mt-4">Delete Department</h4>
-                    <form action="{{ route('departments.delete') }}" method="POST">
-                        @csrf
-                        @method('DELETE')
+            </div>
+        <div class="p-6 text-gray-900 dark:text-gray-100">
+        <h4 class="text-xl font-semibold mb-4 ">Add new department</h4>
+        <a href="{{ route('departments.add') }}" class="bg-green-500 text-white px-4 py-2 rounded-md">Add New Department</a>
 
-                        <div class="mb-4">
-                            <select name="department_id" id="department_id" class="mt-1 p-2 text-gray-700 border rounded-md w-full">
-                                <option value="" disabled selected>Select Department</option>
-                                @foreach($departments as $dept)
-                                    <option value="{{ $dept->department_id }}">{{ $dept->department_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md">Delete Department</button>
-                        </div>
-                    </form>
+        <!--  Form for Deleting Departments -->
+        <h4 class="text-xl font-semibold mb-4 mt-4">Delete Department</h4>
+            <form action="{{ route('departments.delete') }}" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <div class="mb-4">
+                    <select name="department_id" id="department_id" class="mt-1 p-2 text-gray-700 border rounded-md w-full">
+                        <option value="" disabled selected>Select Department</option>
+                        @foreach($departments as $dept)
+                            <option value="{{ $dept->department_id }}">{{ $dept->department_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md">Delete Department</button>
+                </div>
+            </form>
+
             </div>
         </div>
     </div>
@@ -109,5 +110,6 @@
             });
         });
    </script>
-    </x-app-layout>
+   
+</x-app-layout>
 

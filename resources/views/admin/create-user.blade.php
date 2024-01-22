@@ -1,6 +1,5 @@
 <x-app-layout>
 
-
 <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -8,7 +7,7 @@
                     <h2 class="text-2xl font-semibold mb-4">Create New User</h2>
 
                     <form action="{{ route('admin.user.create') }}" method="POST">
- @csrf
+                        @csrf
 
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name:</label>
@@ -54,4 +53,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>

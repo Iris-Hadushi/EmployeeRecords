@@ -1,6 +1,7 @@
 <x-guest-layout>
+
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+        {{ __('Forgot your password? No problem. Just let us know your email address or username and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>
 
     <!-- Session Status -->
@@ -9,7 +10,7 @@
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
-        <!-- Email or Username -->
+      
         <div>
             <x-input-label for="input_type" :value="__('Email/Username')" />
             <x-text-input id="input_type" class="block mt-1 w-full" type="text" name="input_type" :value="old('input_type')" required autofocus />
@@ -23,4 +24,5 @@
             </x-primary-button>
         </div>
     </form>
+
 </x-guest-layout>

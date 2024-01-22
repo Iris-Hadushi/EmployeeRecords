@@ -29,19 +29,19 @@
                             </select>
                         </div>
 
-
                         <div class="mb-4">
-                        <label for="company_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Company:</label>
-                        <select name="company_id" id="company_id" class="mt-1 p-2 text-gray-700 border rounded-md w-full">
-                        @foreach($companies as $company)
-                        <option value="{{ $company->company_id }}">{{ $company->company_name }}</option>
-                        @endforeach
-                        </select>
+                            <label for="company_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Company:</label>
+                                <select name="company_id" id="company_id" class="mt-1 p-2 text-gray-700 border rounded-md w-full">
+                                    @foreach($companies as $company)
+                                    <option value="{{ $company->company_id }}">{{ $company->company_name }}</option>
+                                    @endforeach
+                                </select>
                         </div>
 
                         <div class="mb-4">
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Add Department</button>
                         </div>
+
                     </form>
                 </div>
             </div>

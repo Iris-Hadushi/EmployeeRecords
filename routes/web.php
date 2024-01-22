@@ -21,10 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('/home', [HomeController::class,'index'])->middleware('auth')->name('home');
 
 Route::middleware('auth')->group(function () {
@@ -40,11 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/departments/add', [DepartmentController::class, 'showAddForm'])->name('departments.add');
     Route::post('/departments/store', [DepartmentController::class, 'store'])->name('departments.store');
     Route::delete('/departments/delete', [DepartmentController::class, 'delete'])->name('departments.delete');
-Route::get('/departments/edit/{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
-Route::patch('/departments/update/{department}', [DepartmentController::class, 'update'])->name('departments.update');
+    Route::get('/departments/edit/{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
+    Route::patch('/departments/update/{department}', [DepartmentController::class, 'update'])->name('departments.update');
 
 });
-
-  
 
 require __DIR__.'/auth.php';
