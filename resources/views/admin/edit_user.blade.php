@@ -8,8 +8,8 @@
                     <h2 class="text-2xl font-semibold mb-4">Edit User</h2>
 
                     <form action="{{ route('admin.update_user', ['user' => $user->id]) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
+                    @csrf
+                    @method('PATCH')
 
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name:</label>
@@ -28,7 +28,7 @@
 
                         <div class="mb-4">
                             <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password:</label>
-                            <input type="password" name="password" id="password" class="mt-1 p-2 text-gray-700 border rounded-md w-full" value="{{ old('password', $user->password) }}" required>
+                            <input type="password" name="password" id="password" class="mt-1 p-2 text-gray-700 border rounded-md w-full" placeholder="Enter new password if you want to change it">
                         </div>
 
                         <div class="mb-4">
